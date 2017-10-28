@@ -1,0 +1,133 @@
+<html>
+<p>Hello Maps</p>
+<div id="map"></div>
+<!-- Replace the value of the key parameter with your own API key. -->
+<script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCp8LvJ0F70f6K57rvaxrSBFBpff7hWIAI&libraries=places&callback=initMap">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<style>
+  #map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+<script>
+  $.get('../static/analytics/out.csv', function(data) {
+    function initMap() {
+      var bounds = new google.maps.LatLngBounds();
+      var mapOptions = {
+        mapTypeId: 'roadmap'
+      };
+
+       // Display a map on the page
+      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+       // Multiple Markers
+      var markers = [];
+
+       // Info Window Content
+      var infoWindowContent = [];
+
+      data = csvToArray(data);
+      data.forEach(function(item) {
+        markers.push([item.WellID, parseFloat(item.Lat), parseFloat(item.Lon),item.cluster]);
+        infoWindowContent.push([item.Owner,item.cluster]);
+      });
+
+       // Display multiple markers on a map
+      var infoWindow = new google.maps.InfoWindow(),
+      marker, i;
+
+      for (i = 0; i < markers.length - 1; i++) {
+        console.log(markers[i][1]);
+        var position = new google.maps.LatLng(markers[i][2], markers[i][1]);      
+        bounds.extend(position);
+        marker = new google.maps.Marker({
+	         position: position,
+           map: map,});
+        if(markers[i][3]==1){
+           marker.setIcon('../static/analytics/green-dot.png');
+           }
+        else if(markers[i][3]==2)
+       {
+         marker.setIcon('../static/analytics/red-dot.png');
+       }
+       else if(markers[i][3]==3)
+       {
+        marker.setIcon('../static/analytics/purple-dot.png');
+       }
+       else if(markers[i][3]==4)
+       {
+        marker.setIcon('../static/analytics/blue-dot.png');
+       }
+       else if(markers[i][3]==5)
+       {
+        marker.setIcon('../static/analytics/orange-dot.png');
+       }
+       else if(markers[i][3]==6)
+       {
+        marker.setIcon('../static/analytics/pink.png');
+       }
+       else
+       {
+        marker.setIcon('../static/analytics/yellow.png')
+       }
+
+         // Allow each marker to have an info window    
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            infoWindow.setContent(infoWindowContent[i][0]);
+            infoWindow.open(map, marker);
+          }
+        })(marker, i));
+
+         // Automatically center the map fitting all markers on the screen
+        map.fitBounds(bounds);
+      }
+
+       // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+      var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(17);
+        google.maps.event.removeListener(boundsListener);
+      });
+
+    }
+    initMap();
+  });
+
+  function csvToArray(csvString) {
+    // The array we're going to build
+    var csvArray = [];
+    // Break it into rows to start
+    var csvRows = csvString.split(/\n/);
+    // Take off the first line to get the headers, then split that into an array
+    var csvHeaders = csvRows.shift().split(',');
+
+    // Loop through remaining rows
+    for (var rowIndex = 0; rowIndex < csvRows.length; ++rowIndex) {
+      var rowArray = csvRows[rowIndex].split(',');
+       // Create a new row object to store our data.
+      var rowObject = csvArray[rowIndex] = {};
+
+       // Then iterate through the remaining properties and use the headers as keys
+      for (var propIndex = 0; propIndex < rowArray.length; ++propIndex) {
+         // Grab the value from the row array we're looping through...
+        var propValue = rowArray[propIndex];
+         // ...also grab the relevant header (the RegExp in both of these removes quotes)
+        var propLabel = csvHeaders[propIndex];
+
+        rowObject[propLabel.trim()] = propValue;
+      }
+    }
+    return csvArray;
+  }
+</script>
+</html>

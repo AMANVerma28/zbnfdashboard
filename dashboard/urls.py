@@ -3,6 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 
 urlpatterns = [
-	url(r'^index/',views.index, name = "index"),
-	url(r'^dashboard1/',views.dash, name = "dash"),
+	url(r'^$',views.index, name = "index"),
+	url(r'^maps$',views.showmaps, name = "showmaps"),
+	url(r'^well$',views.showwells, name = "showwells"),
 ]
