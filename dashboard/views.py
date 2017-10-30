@@ -36,7 +36,7 @@ def index(request):
     schema = data.get("http://127.0.0.1:2469/yield")
     with open('static/json/yield.json', 'w') as outfile:
         json.dump(schema, outfile)
-    return render(request,'dashboard/index.html')   
+    return render(request,'dashboard/dashboard.html')   
 
 #View for charts.
 #It requests data of all models except yield as it doesn't need it.
