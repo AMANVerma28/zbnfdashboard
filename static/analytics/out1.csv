@@ -1,0 +1,142 @@
+﻿[
+ {
+   "WellID": 1,
+   "Owner": "Suma",
+   "Lon": 13.536338,
+   "Lat": 79.068125,
+   "cluster": 2
+ },
+ {
+   "WellID": 2,
+   "Owner": "Lahari",
+   "Lon": 13.536557,
+   "Lat": 79.068661,
+   "cluster": 4
+ },
+ {
+   "WellID": 3,
+   "Owner": "Javali",
+   "Lon": 13.536922,
+   "Lat": 79.068833,
+   "cluster": 4
+ },
+ {
+   "WellID": 4,
+   "Owner": "Vagdevi",
+   "Lon": 13.538205,
+   "Lat": 79.066033,
+   "cluster": 3
+ },
+ {
+   "WellID": 5,
+   "Owner": "Lasya",
+   "Lon": 13.538891,
+   "Lat": 79.066412,
+   "cluster": 2
+ },
+ {
+   "WellID": 6,
+   "Owner": "Raja Lakshmi",
+   "Lon": 13.541676,
+   "Lat": 79.067881,
+   "cluster": 3
+ },
+ {
+   "WellID": 7,
+   "Owner": "Naga Lakshmi",
+   "Lon": 13.542785,
+   "Lat": 79.066498,
+   "cluster": 2
+ },
+ {
+   "WellID": 8,
+   "Owner": "Dharani",
+   "Lon": 13.542181,
+   "Lat": 79.071873,
+   "cluster": 4
+ },
+ {
+   "WellID": 9,
+   "Owner": "Hiranmai",
+   "Lon": 13.543167,
+   "Lat": 79.073356,
+   "cluster": 3
+ },
+ {
+   "WellID": 10,
+   "Owner": "Vasavi",
+   "Lon": 13.539853,
+   "Lat": 79.066192,
+   "cluster": 2
+ },
+ {
+   "WellID": 11,
+   "Owner": "Vaishali",
+   "Lon": 13.541893,
+   "Lat": 79.060292,
+   "cluster": 3
+ },
+ {
+   "WellID": 12,
+   "Owner": "Mrinalini",
+   "Lon": 13.538803,
+   "Lat": 79.066915,
+   "cluster": 3
+ },
+ {
+   "WellID": 13,
+   "Owner": "Yoshitha",
+   "Lon": 13.534693,
+   "Lat": 79.064182,
+   "cluster": 5
+ },
+ {
+   "WellID": 14,
+   "Owner": "Ragavi",
+   "Lon": 13.539353,
+   "Lat": 79.062392,
+   "cluster": 2
+ },
+ {
+   "WellID": 15,
+   "Owner": "Madhu",
+   "Lon": 13.531153,
+   "Lat": 79.069892,
+   "cluster": 4
+ },
+ {
+   "WellID": 16,
+   "Owner": "Sangeetha",
+   "Lon": 13.533011,
+   "Lat": 79.070111,
+   "cluster": 5
+ },
+ {
+   "WellID": 17,
+   "Owner": "Tanuja",
+   "Lon": 13.537891,
+   "Lat": 79.069876,
+   "cluster": 5
+ },
+ {
+   "WellID": 18,
+   "Owner": "Sonia",
+   "Lon": 13.543167,
+   "Lat": 79.064182,
+   "cluster": 3
+ },
+ {
+   "WellID": 19,
+   "Owner": "Varshitha",
+   "Lon": 13.537891,
+   "Lat": 79.070011,
+   "cluster": 3
+ },
+ {
+   "WellID": 20,
+   "Owner": "Satya",
+   "Lon": 13.547891,
+   "Lat": 79.064182,
+   "cluster": 1
+ }
+]

@@ -11,7 +11,7 @@ from django.http import Http404,HttpRequest
 #When the data is recieved, it is stored in the static folder as a json file.
 #Home paga requests data of each model from server.
 def index(request):
-    data = coreapi.Client()
+    """data = coreapi.Client()
     schema = data.get("http://127.0.0.1:2469/household")
     with open('static/json/household.json', 'w') as outfile:
         json.dump(schema, outfile)
@@ -35,13 +35,13 @@ def index(request):
         json.dump(schema, outfile)
     schema = data.get("http://127.0.0.1:2469/yield")
     with open('static/json/yield.json', 'w') as outfile:
-        json.dump(schema, outfile)
+        json.dump(schema, outfile)"""
     return render(request,'dashboard/dashboard.html')   
 
 #View for charts.
 #It requests data of all models except yield as it doesn't need it.
 def showmaps(request):
-    data = coreapi.Client()
+    """data = coreapi.Client()
     schema = data.get("http://127.0.0.1:2469/household")
     with open('static/json/household.json', 'w') as outfile:
         json.dump(schema, outfile)
@@ -59,14 +59,14 @@ def showmaps(request):
         json.dump(schema, outfile)
     schema = data.get("http://127.0.0.1:2469/storage")
     with open('static/json/storage.json', 'w') as outfile:
-        json.dump(schema, outfile)
+        json.dump(schema, outfile)"""
     return render(request,'dashboard/maps.html')
 
 #View for charts.
 #It requests data of just well model as it doesn't need others.
 def showwells(request):
-    data = coreapi.Client()
+    """data = coreapi.Client()
     schema = data.get("http://127.0.0.1:2469/well")
     with open('static/json/well.json', 'w') as outfile:
-        json.dump(schema, outfile)
+        json.dump(schema, outfile)"""
     return render(request,'dashboard/wells.html')
