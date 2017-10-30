@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
 	url(r'^well$',views.analyticswells, name = "analyticswells"),
+	url(r'^well1$',views.analyticswells1, name = "analyticswells1"),
 ]

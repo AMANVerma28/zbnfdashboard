@@ -18,3 +18,6 @@ def analyticswells(request):
 #    with open('static/json/analyticsyield.json', 'w') as outfile:
 #        json.dump(schema, outfile)
     return render(request,'analytics/wells.html')
+
+def analyticswells1(request):
+    return render(request,'analytics/wells1.html')	

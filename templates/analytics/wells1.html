@@ -51,7 +51,7 @@
   text-align: left;
   vertical-align: middle;
 } 
-html,body,#cesiumContainer{
+html,body,#map{
     width: 100%;height: 600px;margin: 0;padding: 0;overflow: hidden;
 }
 </style>
@@ -87,13 +87,13 @@ html,body,#cesiumContainer{
                         <p>Well</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="http://localhost:2468/analytics/well1">
                         <i class="pe-7s-note2"></i>
                         <p>Analytics</p>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="http://localhost:2468/analytics/well">
                         <i class="pe-7s-note2"></i>
                         <p>Analytics 3D</p>
@@ -187,7 +187,7 @@ html,body,#cesiumContainer{
             <div class="container-fluid">
                 <div class="row ">
                     <div class="card ">
-                        <div id="cesiumContainer"></div>                     
+                        <div id="map"></div>                     
                     </div>
                 </div>
             </div>
@@ -232,84 +232,8 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCp8LvJ0F70f6K57rvaxrSBFBp
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-    $.get('../static/analytics/out.json', function(data) {
-
-        var viewer = new Cesium.Viewer('cesiumContainer', {
-		//Start in Columbus Viewer
-		timeline : false,
-		homeButton : false,
-		animation : false,
-		baseLayerPicker : false,
-		
-		//Hide the base layer picker
-		baseLayerPicker : false,
-		//Use OpenStreetMaps
-		imageryProvider : Cesium.createOpenStreetMapImageryProvider({
-			url : 'https://a.tile.openstreetmap.org/'
-		}),
-		// Use high-res stars downloaded from https://github.com/AnalyticalGraphicsInc/cesium-assets
-		/*
-		skyBox : new Cesium.SkyBox({
-			sources : {
-			  positiveX : 'stars/TychoSkymapII.t3_08192x04096_80_px.jpg',
-			  negativeX : 'stars/TychoSkymapII.t3_08192x04096_80_mx.jpg',
-			  positiveY : 'stars/TychoSkymapII.t3_08192x04096_80_py.jpg',
-			  negativeY : 'stars/TychoSkymapII.t3_08192x04096_80_my.jpg',
-			  positiveZ : 'stars/TychoSkymapII.t3_08192x04096_80_pz.jpg',
-			  negativeZ : 'stars/TychoSkymapII.t3_08192x04096_80_mz.jpg'
-			}
-		}),*/
-		// Show Columbus View map with Web Mercator projection
-		
-	});
-    //Add basic drag and drop functionality
-	viewer.extend(Cesium.viewerDragDropMixin);
-
-	//Show a pop-up alert if we encounter an error when processing a dropped file
-	viewer.dropError.addEventListener(function(dropHandler, name, error) {
-		console.log(error);
-		window.alert(error);
-	});
-    for (row in data){
-		var temp;
-		if (data[row].cluster==1){
-			temp = Cesium.Color.GREEN.withAlpha(0.5);
-		}
-		else if (data[row].cluster==2){
-			temp = Cesium.Color.RED.withAlpha(0.5);
-		}
-        else if (data[row].cluster==3){
-			temp = Cesium.Color.PURPLE.withAlpha(0.5);
-		}
-        else if (data[row].cluster==4){
-			temp = Cesium.Color.BLUE.withAlpha(0.5);
-		}
-        else if (data[row].cluster==5){
-			temp = Cesium.Color.ORANGE.withAlpha(0.5);
-		}
-        else if (data[row].cluster==6){
-			temp = Cesium.Color.PINK.withAlpha(0.5);
-		}
-        else if (data[row].cluster==7){
-			temp = Cesium.Color.YELLOW.withAlpha(0.5);
-		}
-		var Cylinder = viewer.entities.add({
-	    	name : 'Owner : '+data[row].Owner,
-	    	position: Cesium.Cartesian3.fromDegrees(data[row].Lat, data[row].Lon, 25),
-		    cylinder : {
-		        length : 50,
-		        topRadius : 20,
-		        bottomRadius : 20,
-		        material : temp,
-		        outline : true,
-		        outlineColor : Cesium.Color.DARK_GREEN
-	    	}
-		});
-	}
-	viewer.zoomTo(viewer.entities);
-});
-
-     /* function initMap() {
+    $.get('../static/analytics/out.csv', function(data) {
+      function initMap() {
         var bounds = new google.maps.LatLngBounds();
         var mapOptions = {
           mapTypeId: 'roadmap'
@@ -413,7 +337,8 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCp8LvJ0F70f6K57rvaxrSBFBp
           rowObject[propLabel.trim()] = propValue;
         }
       }
-      return csvArray;*/
+      return csvArray;
+    }
   </script>
 </body>
 <!--
