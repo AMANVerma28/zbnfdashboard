@@ -59,12 +59,9 @@ html,body,#cesiumContainer{
 <body>
 <div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="{% static 'img/sidebar-5.jpg'%}">
-
     <!--
-
         Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
         Tip 2: you can also add an image using data-image tag
-
     -->
 
     	<div class="sidebar-wrapper">
@@ -224,6 +221,7 @@ html,body,#cesiumContainer{
         <p class="copyright pull-right"></p>
     </div>
 </footer>
+
 <script src="{% static 'Cesium-1.38/Build/Cesium/Cesium.js' %}"></script>
 <script src="{% static 'Cesium-1.38/Build/Cesium/Widgets/widgets.css' %}"></script>
 <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -244,20 +242,6 @@ $.getJSON( "../../static/json/wells.json", function( data ) {
 		imageryProvider : Cesium.createOpenStreetMapImageryProvider({
 			url : 'https://a.tile.openstreetmap.org/'
 		}),
-		// Use high-res stars downloaded from https://github.com/AnalyticalGraphicsInc/cesium-assets
-		/*
-		skyBox : new Cesium.SkyBox({
-			sources : {
-			  positiveX : 'stars/TychoSkymapII.t3_08192x04096_80_px.jpg',
-			  negativeX : 'stars/TychoSkymapII.t3_08192x04096_80_mx.jpg',
-			  positiveY : 'stars/TychoSkymapII.t3_08192x04096_80_py.jpg',
-			  negativeY : 'stars/TychoSkymapII.t3_08192x04096_80_my.jpg',
-			  positiveZ : 'stars/TychoSkymapII.t3_08192x04096_80_pz.jpg',
-			  negativeZ : 'stars/TychoSkymapII.t3_08192x04096_80_mz.jpg'
-			}
-		}),*/
-		// Show Columbus View map with Web Mercator projection
-		
 	});
 
 	//Add basic drag and drop functionality
@@ -278,7 +262,7 @@ $.getJSON( "../../static/json/wells.json", function( data ) {
 			temp = Cesium.Color.GREEN.withAlpha(0.5);
 		}
 		var greenCylinder = viewer.entities.add({
-	    	name : 'Yield : '+data[row].Average_yield+'\n'+'Depth : '+data[row].Depth,
+	    	name : 'Yield : '+data[row].Average_yield+'\n''Depth : '+data[row].Depth, 
 	    	position: Cesium.Cartesian3.fromDegrees(data[row].Location.coordinates[0], data[row].Location.coordinates[1], data[row].Depth/2),
 		    cylinder : {
 		        length : data[row].Depth,
@@ -294,93 +278,4 @@ $.getJSON( "../../static/json/wells.json", function( data ) {
 });
 </script>
 </body>
-<!--
-<!DOCTYPE html>
-<html>
-{% load static %}
-<link rel="stylesheet" href ="{% static 'Cesium-1.38/Build/Cesium/Widgets/widgets.css' %}"></link>
-<style>
-	html,body,#cesiumContainer{
-		width: 100%;height: 800px;margin: 0;padding: 0;overflow: hidden;
-	}
-</style>
-<head>
-	<title>Wells</title>
-</head>
-<body>
-<div id="cesiumContainer"></div>
-<script src="{% static 'Cesium-1.38/Build/Cesium/Cesium.js' %}"></script>
-<script src="{% static 'Cesium-1.38/Build/Cesium/Widgets/widgets.css' %}"></script>
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script type="text/javascript">
-$.getJSON( "../../static/json/well.json", function( data ) {
-
-	var viewer = new Cesium.Viewer('cesiumContainer', {
-		//Start in Columbus Viewer
-		sceneMode : Cesium.SceneMode.COLUMBUS_VIEW,
-		//Use standard Cesium terrain
-		terrainProvider : new Cesium.CesiumTerrainProvider({
-			url : 'https://assets.agi.com/stk-terrain/v1/tilesets/world/tiles'
-		}),
-		timeline : false,
-		homeButton : false,
-		animation : false,
-		baseLayerPicker : false,
-		
-		//Hide the base layer picker
-		baseLayerPicker : false,
-		//Use OpenStreetMaps
-		imageryProvider : Cesium.createOpenStreetMapImageryProvider({
-			url : 'https://a.tile.openstreetmap.org/'
-		}),
-		// Use high-res stars downloaded from https://github.com/AnalyticalGraphicsInc/cesium-assets
-		/*
-		skyBox : new Cesium.SkyBox({
-			sources : {
-			  positiveX : 'stars/TychoSkymapII.t3_08192x04096_80_px.jpg',
-			  negativeX : 'stars/TychoSkymapII.t3_08192x04096_80_mx.jpg',
-			  positiveY : 'stars/TychoSkymapII.t3_08192x04096_80_py.jpg',
-			  negativeY : 'stars/TychoSkymapII.t3_08192x04096_80_my.jpg',
-			  positiveZ : 'stars/TychoSkymapII.t3_08192x04096_80_pz.jpg',
-			  negativeZ : 'stars/TychoSkymapII.t3_08192x04096_80_mz.jpg'
-			}
-		}),*/
-		// Show Columbus View map with Web Mercator projection
-		
-	});
-
-	//Add basic drag and drop functionality
-	viewer.extend(Cesium.viewerDragDropMixin);
-
-	//Show a pop-up alert if we encounter an error when processing a dropped file
-	viewer.dropError.addEventListener(function(dropHandler, name, error) {
-		console.log(error);
-		window.alert(error);
-	});
-	
-	for (row in data){
-		var temp;
-		if (data[row].Average_yield<300){
-			temp = Cesium.Color.BLUE.withAlpha(0.5);
-		}
-		else {
-			temp = Cesium.Color.GREEN.withAlpha(0.5);
-		}
-		var greenCylinder = viewer.entities.add({
-	    	name : 'Yield : '+data[row].Average_yield+'\n'+'Depth : '+data[row].Depth,
-	    	position: Cesium.Cartesian3.fromDegrees(data[row].Location.coordinates[0], data[row].Location.coordinates[1], data[row].Depth/2),
-		    cylinder : {
-		        length : data[row].Depth,
-		        topRadius : 20,
-		        bottomRadius : 20,
-		        material : temp,
-		        outline : true,
-		        outlineColor : Cesium.Color.DARK_GREEN
-	    	}
-		});
-	}
-	viewer.zoomTo(viewer.entities);
-});
-</script>
-</body>
-</html> -->
+</html>
