@@ -262,7 +262,7 @@ $.getJSON( "../../static/json/wells.json", function( data ) {
 			temp = Cesium.Color.GREEN.withAlpha(0.5);
 		}
 		var greenCylinder = viewer.entities.add({
-	    	name : 'Yield : '+data[row].Average_yield+'\n''Depth : '+data[row].Depth, 
+	    	name : 'Yield : '+data[row].Average_yield+'\n'+'Depth : '+data[row].Depth, 
 	    	position: Cesium.Cartesian3.fromDegrees(data[row].Location.coordinates[0], data[row].Location.coordinates[1], data[row].Depth/2),
 		    cylinder : {
 		        length : data[row].Depth,
