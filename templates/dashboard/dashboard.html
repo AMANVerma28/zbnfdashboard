@@ -103,27 +103,27 @@
                 <li class="active">
                     <a href="https://znbfdashboard.herokuapp.com">
                         <i class="pe-7s-graph"></i>
-                        <p>Dashboard</p>
+                        <p>Visualization</p>
                     </a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="https://znbfdashboard.herokuapp.com/well">
                         <i class="pe-7s-user"></i>
                         <p>Well</p>
                     </a>
-                </li>
+                </li>-->
                 <li>
                     <a href="https://znbfdashboard.herokuapp.com/analytics/well1">
                         <i class="pe-7s-note2"></i>
                         <p>Analytics</p>
                     </a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="https://znbfdashboard.herokuapp.com/analytics/well">
                         <i class="pe-7s-note2"></i>
                         <p>Analytics 3D</p>
                     </a>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
@@ -211,58 +211,72 @@
         </nav>
 
 
+        <!-- Main body -->
         <div  class="content" style="z-index:-1">
             <div class="container-fluid">
                 
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#chartsdiv">Charts</a></li>
+                    <li><a data-toggle="tab" href="#gmaps">2D Maps</a></li>
+                    <li><a data-toggle="tab" href="#cmaps">3D Maps</a></li>
+                </ul>
+
+                
+            <div class="tab-content">
                 <!-- Charts div -->
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="card " >
-                            <div class="header">
-                                <h4 class="title"><p id="demo"></p> Crop Yield</h4>
-                            </div>
-                            <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
-                                <div class="footer">
-                                	<center>
-                                        <div class="legend">
-                                            <i class="fa fa-circle text-info"></i> karif
-                                            <i class="fa fa-circle text-danger"></i> rabi
-                                            <i class="fa fa-circle text-warning"></i> summer
+                <div id="chartsdiv" class="tab-pane fade in active">
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="card " >
+                                <div class="header">
+                                    <h4 class="title"><p id="demo"></p> Crop Yield</h4>
+                                </div>
+                                <div class="content">
+                                    <div id="chartActivity" class="ct-chart"></div>
+                                    <div class="footer">
+                                    	<center>
+                                            <div class="legend">
+                                                <i class="fa fa-circle text-info"></i> karif
+                                                <i class="fa fa-circle text-danger"></i> rabi
+                                                <i class="fa fa-circle text-warning"></i> summer
+                                            </div>
+                                        </center>
+                                        <div id="slidecontainer">
+                                            <p  style="margin: 6px; text-align:center">Year: <span id="dem"></span></p>
+                                            <p style=" text-align:center;">(Slide below to change the year)</p>
+                                            <input type="range" min="2000" max="2030" style="width:100%" value="2017" class="slider" id="myRange">
                                         </div>
-                                    </center>
-                                    <div id="slidecontainer">
-                                        <p  style="margin: 6px; text-align:center">Year: <span id="dem"></span></p>
-                                        <p style=" text-align:center;">(Slide below to change the year)</p>
-                                        <input type="range" min="2000" max="2030" style="width:100%" value="2017" class="slider" id="myRange">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div> 
+                        </div> 
+                    </div>
                 </div>
                 <!-- End of charts div -->
 
                 <!-- Map div -->
-                <div class="row ">
-                    <div class="card ">
-                        <div id="map" style="width:100%;height:800px;" class="col-md-12"></div>
-                        <div class="footer">
-                            <div class="legend"></div>
-                            <div id="slidecontainer">
-                                <p style="text-align: center;margin: 6px">Year: <span id="value"></span></p>
-                                <p style=" text-align:center;">(Slide below to change the year)</p>
-                                <input type="range" min="2000" max="2030" style="width:100%" value="2017" data-show-value="true" class="slider" id="Range">
+                <div id="gmaps" class="tab-pane fade">
+                    <div class="row ">
+                        <div class="card ">
+                            <div id="map" style="width:100%;height:800px;" class="col-md-12"></div>
+                            <div class="footer">
+                                <div class="legend"></div>
+                                <div id="slidecontainer">
+                                    <p style="text-align: center;margin: 6px">Year: <span id="value"></span></p>
+                                    <p style=" text-align:center;">(Slide below to change the year)</p>
+                                    <input type="range" min="2000" max="2030" style="width:100%" value="2017" data-show-value="true" class="slider" id="Range">
+                                </div>
+                                <select id="season" style="height:30px;width:120px">
+                                    <option selected value="1">karif</option>
+                                    <option value="2">rabi</option>
+                                    <option value="3">summer</option>
+                                </select>                     
                             </div>
-                            <select id="season" style="height:30px;width:120px">
-                                <option selected value="1">karif</option>
-                                <option value="2">rabi</option>
-                                <option value="3">summer</option>
-                            </select>                     
                         </div>
                     </div>
                 </div>
                 <!-- End of Map div -->
+            </div>
             </div>
         </div>
     </div>
