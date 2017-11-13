@@ -25,13 +25,13 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="{% static 'css/demo.css'%}" rel="stylesheet" />
  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link href="{% static 'Cesium-1.38/Build/Cesium/Widgets/widgets.css' %}"></link>
 
 
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="{% static 'css/pe-icon-7-stroke.css'%}" rel="stylesheet" />
+    <link rel="stylesheet" href ="{% static 'Cesium-1.38/Build/Cesium/Widgets/widgets.css' %}"></link>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -41,10 +41,11 @@
       .modal {
   text-align: center;
 }
+
 @media (min-width: 1200px){
     .container {
      width: 970px; 
-}
+    }
 }
 
 @media screen and (min-width: 768px) { 
@@ -62,10 +63,10 @@
   vertical-align: middle;
 } 
 
-
-
-
-   </style>
+html,body,#cesiumContainer{
+        width: 100%;height: 800px;margin: 0;padding: 0;overflow: hidden;
+    }
+</style>
   
 </head>
 <body>
@@ -289,7 +290,7 @@
 
                     <!-- Cesium maps div -->
                     <div id="cmaps" class="tab-pane fade">
-                                <div id="cesiumContainer" style="width: 100%;height: 800px;"></div>                     
+                                <div id="cesiumContainer"></div>                     
                     </div>
                     <!-- End of cesium maps div -->
 
