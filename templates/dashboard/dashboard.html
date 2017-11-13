@@ -265,7 +265,7 @@
                     <!-- Map div -->
                     <div id="gmaps" class="tab-pane fade">
                         <div class="row ">
-                            <div class="card ">
+                            <div class="card">
                                 <div id="map" style="width:100%;height:600px;" class="col-md-12"></div>
                                 <div class="footer">
                                     <div class="legend"></div>
@@ -274,7 +274,7 @@
                                         <p style=" text-align:center;">(Slide below to change the year)</p>
                                         <input type="range" min="2000" max="2030" style="width:100%" value="2017" data-show-value="true" class="slider" id="Range">
                                     </div>
-                                    <select id="season" style="height:30px;width:120px">
+                                    <select id="season" style="height:20px;width:120px">
                                         <option selected value="1">karif</option>
                                         <option value="2">rabi</option>
                                         <option value="3">summer</option>
@@ -284,6 +284,13 @@
                         </div>
                     </div>
                     <!-- End of Map div -->
+                    <div id="cmaps" class="tab-pane fade">
+                        <div class="row ">
+                            <div class="card ">
+                                <div id="cesiumContainer" style="width: 100%;height: 800px;margin: 0;padding: 0;overflow: hidden"></div>                     
+                            </div>
+                        </div>
+                    </div>
                 </div>
         </div>
     </div>
@@ -319,6 +326,62 @@
         <p class="copyright pull-right"></p>
     </div>
 </footer>
+
+<script src="{% static 'Cesium-1.38/Build/Cesium/Cesium.js' %}"></script>
+<script src="{% static 'Cesium-1.38/Build/Cesium/Widgets/widgets.css' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript">
+$.getJSON( "../../static/json/wells.json", function( data ) {
+
+    var viewer = new Cesium.Viewer('cesiumContainer', {
+        //Start in Columbus Viewer
+        sceneMode : Cesium.SceneMode.MORPHING,
+        timeline : false,
+        homeButton : false,
+        animation : false,
+        baseLayerPicker : false,
+        
+        //Hide the base layer picker
+        baseLayerPicker : false,
+        //Use OpenStreetMaps
+        imageryProvider : Cesium.createOpenStreetMapImageryProvider({
+            url : 'https://a.tile.openstreetmap.org/'
+        }),
+    });
+
+    //Add basic drag and drop functionality
+    viewer.extend(Cesium.viewerDragDropMixin);
+
+    //Show a pop-up alert if we encounter an error when processing a dropped file
+    viewer.dropError.addEventListener(function(dropHandler, name, error) {
+        console.log(error);
+        window.alert(error);
+    });
+    
+    for (row in data){
+        var temp;
+        if (data[row].Average_yield<400){
+            temp = Cesium.Color.BLUE.withAlpha(0.5);
+        }
+        else {
+            temp = Cesium.Color.GREEN.withAlpha(0.5);
+        }
+        var greenCylinder = viewer.entities.add({
+            name : 'Yield : '+data[row].Average_yield+'\n'+'Depth : '+data[row].Depth, 
+            position: Cesium.Cartesian3.fromDegrees(data[row].Location.coordinates[0], data[row].Location.coordinates[1], data[row].Depth/2),
+            cylinder : {
+                length : data[row].Depth,
+                topRadius : 20,
+                bottomRadius : 20,
+                material : temp,
+                outline : true,
+                outlineColor : Cesium.Color.DARK_GREEN
+            }
+        });
+    }
+    viewer.zoomTo(viewer.entities);
+});
+</script>
 
 </body>
 
