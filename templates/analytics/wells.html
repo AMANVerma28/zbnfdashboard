@@ -36,14 +36,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 
+
+   
+.modal {
+  text-align: center;
+}
+
 @media (min-width: 1200px){
     .container {
      width: 970px; 
     }
-}
-   
-.modal {
-  text-align: center;
 }
 
 @media screen and (min-width: 768px) { 
@@ -63,6 +65,11 @@
 html,body,#cesiumContainer{
     width: 100%;height: 600px;margin: 0;padding: 0;overflow: hidden;
 }
+
+html,body,#map{
+    width: 100%;height: 600px;margin: 0;padding: 0;overflow: hidden;
+}
+
 </style>
 </head>
 <body>
@@ -197,16 +204,16 @@ html,body,#cesiumContainer{
                 <div class="tab-content">
                     
                     <!-- Google maps div -->
-                    <div id="gmaps" class="tab-pane fade">
+                    <div id="gmaps" class="tab-pane fade in active">
                         <div class="row ">
                             <div class="card ">
-                                <div id="map"></div>                     
+                                <div id="map" class="col-md-12"></div>
                             </div>
                         </div>
                     </div><!-- End of gmaps div -->
 
                     <!-- Cesium maps div -->
-                    <div id="cmaps" class="tab-pane fade in active">
+                    <div id="cmaps" class="tab-pane fade">
                         <div class="row ">
                             <div class="card ">
                                 <div id="cesiumContainer"></div>                     
@@ -249,14 +256,12 @@ html,body,#cesiumContainer{
         <p class="copyright pull-right"></p>
     </div>
 </footer>
+<script src="{% static 'Cesium-1.38/Build/Cesium/Cesium.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script 
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCp8LvJ0F70f6K57rvaxrSBFBpff7hWIAI&libraries=places&callback=initMap">
 </script>
-<script src="{% static 'Cesium-1.38/Build/Cesium/Cesium.js' %}"></script>
-<script src="{% static 'Cesium-1.38/Build/Cesium/Widgets/widgets.css' %}"></script>
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 <!-- Script for Google maps -->
 <script>
     $.get('../static/analytics/out.csv', function(data) {
