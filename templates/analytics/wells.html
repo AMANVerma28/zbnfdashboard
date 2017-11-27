@@ -92,25 +92,31 @@ html,body,#map{
 
             <ul class="nav">
                 <li>
-                    <a href="https://znbfdashboard.herokuapp.com">
+                    <a href="http://127.0.0.1:8000">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
+                <li >
+                    <a href="http://127.0.0.1:8000/charts">
+                        <i class="pe-7s-user"></i>
+                        <p>Charts</p>
+                    </a>
+                </li>
                 <!-- <li>
-                    <a href="https://znbfdashboard.herokuapp.com/well">
+                    <a href="http://127.0.0.1/well">
                         <i class="pe-7s-user"></i>
                         <p>Well</p>
                     </a>
                 </li>-->
                 <li class="active">
-                    <a href="https://znbfdashboard.herokuapp.com/analytics/well">
+                    <a href="http://127.0.0.1:8000/analytics/well">
                         <i class="pe-7s-note2"></i>
                         <p>Analytics</p>
                     </a>
                 </li>
                 <!--<li class="active">
-                    <a href="https://znbfdashboard.herokuapp.com/analytics/well">
+                    <a href="http://127.0.0.1/analytics/well">
                         <i class="pe-7s-note2"></i>
                         <p>Analytics 3D</p>
                     </a>
@@ -199,7 +205,6 @@ html,body,#map{
 
                 <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#gmaps">2D Maps</a></li>
-                        <li><a data-toggle="tab" href="#cmaps">3D Maps</a></li>
                 </ul>
                 <div class="tab-content">
                     
@@ -211,16 +216,6 @@ html,body,#map{
                             </div>
                         </div>
                     </div><!-- End of gmaps div -->
-
-                    <!-- Cesium maps div -->
-                    <div id="cmaps" class="tab-pane fade">
-                        <div class="row ">
-                            <div class="card ">
-                                <div id="cesiumContainer"></div>                     
-                            </div>
-                        </div>
-                    </div><!-- End of cesium maps div -->
-
 
                 </div>
             </div>
@@ -256,7 +251,6 @@ html,body,#map{
         <p class="copyright pull-right"></p>
     </div>
 </footer>
-<script src="{% static 'Cesium-1.38/Build/Cesium/Cesium.js' %}"></script>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script 
@@ -371,71 +365,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCp8LvJ0F70f6K57rvaxrSBFBp
       }
       return csvArray;
     }
-</script>
-
-
-<!-- Script for Cesium maps -->
-<script>
-    $.get('../static/analytics/out.json', function(data) {
-
-        var viewer = new Cesium.Viewer('cesiumContainer', {
-		//Start in Columbus Viewer
-		timeline : false,
-		animation : false,
-		
-		//Hide the base layer picker
-		baseLayerPicker : false,
-		//Use OpenStreetMaps
-		imageryProvider : Cesium.createOpenStreetMapImageryProvider({
-			url : 'https://a.tile.openstreetmap.org/'
-		}),
-	});
-    //Add basic drag and drop functionality
-	viewer.extend(Cesium.viewerDragDropMixin);
-
-	//Show a pop-up alert if we encounter an error when processing a dropped file
-	viewer.dropError.addEventListener(function(dropHandler, name, error) {
-		console.log(error);
-		window.alert(error);
-	});
-    for (row in data){
-		var temp;
-		if (data[row].cluster==1){
-			temp = Cesium.Color.GREEN.withAlpha(0.5);
-		}
-		else if (data[row].cluster==2){
-			temp = Cesium.Color.RED.withAlpha(0.5);
-		}
-        else if (data[row].cluster==3){
-			temp = Cesium.Color.PURPLE.withAlpha(0.5);
-		}
-        else if (data[row].cluster==4){
-			temp = Cesium.Color.BLUE.withAlpha(0.5);
-		}
-        else if (data[row].cluster==5){
-			temp = Cesium.Color.ORANGE.withAlpha(0.5);
-		}
-        else if (data[row].cluster==6){
-			temp = Cesium.Color.PINK.withAlpha(0.5);
-		}
-        else if (data[row].cluster==7){
-			temp = Cesium.Color.YELLOW.withAlpha(0.5);
-		}
-		var Cylinder = viewer.entities.add({
-	    	name : 'Owner : '+data[row].Owner,
-	    	position: Cesium.Cartesian3.fromDegrees(data[row].Lat, data[row].Lon, 25),
-		    cylinder : {
-		        length : 50,
-		        topRadius : 20,
-		        bottomRadius : 20,
-		        material : temp,
-		        outline : true,
-		        outlineColor : Cesium.Color.DARK_GREEN
-	    	}
-		});
-	}
-	viewer.zoomTo(viewer.entities);
-});
 </script>
 </body>
 </html>

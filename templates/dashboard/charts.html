@@ -115,13 +115,13 @@ html,body,#map{
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li>
                     <a href="http://127.0.0.1:8000">
                         <i class="pe-7s-graph"></i>
                         <p>Visualization</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="http://127.0.0.1:8000/charts">
                         <i class="pe-7s-user"></i>
                         <p>Charts</p>
@@ -228,30 +228,32 @@ html,body,#map{
 
         <!-- Main body -->
         <div class="container">
-                    
-                    
-                    <!-- Map div -->
-                    <div id="gmaps">
-                            <div class="card">
-                                <div id="map" class="col-md-12"></div>
-                                <div class="footer">
-                                    <div class="legend"></div>
-                                    <div id="slidecontainer">
-                                        <p style="text-align: center;margin: 6px">Year: <span id="value"></span></p>
-                                        <p style=" text-align:center;">(Slide below to change the year)</p>
-                                        <input type="range" min="2000" max="2030" style="width:100%" value="2017" data-show-value="true" class="slider" id="Range">
+                    <!-- Charts div -->
+                    <div id="chartsdiv" >
+                                <div class="card " >
+                                    <div class="header">
+                                        <h4 class="title"><p id="demo"></p> Crop Yield</h4>
                                     </div>
-                                    <select id="season" style="height:20px;width:120px">
-                                        <option selected value="1">karif</option>
-                                        <option value="2">rabi</option>
-                                        <option value="3">summer</option>
-                                    </select>                     
+                                    <div class="content">
+                                        <div id="chartActivity" class="ct-chart"></div>
+                                        <div class="footer">
+                                        	<center>
+                                                <div class="legend">
+                                                    <i class="fa fa-circle text-info"></i> karif
+                                                    <i class="fa fa-circle text-danger"></i> rabi
+                                                    <i class="fa fa-circle text-warning"></i> summer
+                                                </div>
+                                            </center>
+                                            <div id="slidecontainer">
+                                                <p  style="margin: 6px; text-align:center">Year: <span id="dem"></span></p>
+                                                <p style=" text-align:center;">(Slide below to change the year)</p>
+                                                <input type="range" min="2000" max="2030" style="width:100%" value="2017" class="slider" id="myRange">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
                     </div>
-                    <!-- End of Map div -->
-
-
+                    <!-- End of charts div -->
         </div>
     </div>
 </div>
@@ -290,6 +292,15 @@ html,body,#map{
 
 <script src="{% static 'js/jquery.min.js' %}"></script>  
 <script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("dem");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function() {
+        demo.initChartist(this.value);
+        output.innerHTML = this.value;
+    }
+    
     var mapslider = document.getElementById("Range");
     var mapoutput = document.getElementById("value");
     mapoutput.innerHTML = mapslider.value;

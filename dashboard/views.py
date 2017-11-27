@@ -60,7 +60,7 @@ def showmaps(request):
     schema = data.get("http://127.0.0.1:2469/storage")
     with open('static/json/storage.json', 'w') as outfile:
         json.dump(schema, outfile)"""
-    return render(request,'dashboard/maps.html')
+    return render(request,'dashboard/charts.html')
 
 #View for charts.
 #It requests data of just well model as it doesn't need others.
